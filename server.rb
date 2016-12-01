@@ -2,9 +2,6 @@ require 'json'
 require 'socket'
 require 'pi_piper'
 
-require_relative './state'
-require_relative './fns'
-
 @gpio_pins = {}
 
 @app_pins = {17 => false}
