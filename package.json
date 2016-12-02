@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "socket.io": "^1.7.1",
-    "socket.io-client": "^1.7.1"
+    "socket.io-client": "^1.7.1",
+    "websocket": "^1.0.23"
   }
 }
