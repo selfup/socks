@@ -42,10 +42,7 @@ if __FILE__ == $0
     Thread.new(socket_server.accept) do |client|
       loop do
         msg = client.recvmsg[0]
-        puts msg
         @print_or_close.(msg, client)
-        p Time.now.utc
-        p @app_pins
         GC.start
       end
     end
