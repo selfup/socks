@@ -42,6 +42,9 @@ if __FILE__ == $0
     Thread.new(socket_server.accept) do |client|
       loop do
         msg = client.recvmsg[0]
+        p msg
+        puts msg
+        p @app_pins
         @print_or_close.(msg, client)
         GC.start
       end

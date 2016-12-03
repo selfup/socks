@@ -19,10 +19,11 @@ wsServer.on('request', (request) => {
 
   connection.on('message', (message) => {
     const msgString = message.utf8Data
+    console.log(JSON.stringify(msgString));
     if (msgString.includes('17')) {
-      const payload = JSON.parse(msgString.split('=')[0])
       for (const i in clients) {
-        clients[i].sendUTF(JSON.stringify(msgString))
+        console.log("MSG STRING RAW", msgString);
+        clients[i].sendUTF(msgString)
       }
     }
   })

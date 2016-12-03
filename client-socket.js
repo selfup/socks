@@ -5,7 +5,7 @@ const net = require('net')
 const sendPayload = (payload) => {
   const rpi = new net.Socket()
   rpi.connect(2000, '10.0.0.23', () => {
-    rpi.write(JSON.stringify(payload))
+    rpi.write(payload)
     rpi.end()
     rpi.destroy()
   })
@@ -28,14 +28,14 @@ client.on('connect', function(connection) {
 
   const sendMsg = () => {
     if (connection.connected) {
-      const payload = {17: true}
+      const payload = { 17: true }
       const msg = JSON.stringify(payload)
       connection.sendUTF(msg);
-      // sendPayload(msg)
+      sendPayload(msg)
     }
   }
 
   sendMsg();
 });
 
-client.connect('ws://localhost:8080/', 'rpi');
+client.connect('ws://10.0.0.181:8080/', 'rpi');
