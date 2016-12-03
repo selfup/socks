@@ -8,7 +8,7 @@
     "start": "node main-socket.js",
     "client": "node client-socket.js",
     "pub": "hs ./public",
-    "rpi": "screen -d -m node client-socket.js && screen -d -m rbenv sudo gpio.rb",
+    "rpi": "screen -d -m node client-socket.js && screen -d -m rbenv sudo ruby gpio.rb",
     "server": "screen -d -m node main-socket.js && screen -d -m hs ./public"
   },
   "keywords": [
