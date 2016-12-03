@@ -2,9 +2,6 @@ require 'json'
 require 'socket'
 require 'pi_piper'
 
-require_relative './state'
-require_relative './fns'
-
 @gpio_pins = {}
 
 @app_pins = {17 => false}
@@ -44,7 +41,9 @@ if __FILE__ == $0
   while true
     Thread.new(socket_server.accept) do |client|
       loop do
-        @print_or_close.(client.recvmsg[0], client)
+        msg = client.recvmsg[0]
+        puts msg
+        @print_or_close.(msg, client)
         p Time.now.utc
         p @app_pins
         GC.start
