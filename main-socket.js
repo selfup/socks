@@ -1,6 +1,9 @@
 const http = require('http')
 const WebSocketServer = require('websocket').server
 const server = http.createServer((request, response) => {})
+const clients = {}
+console.log("NEW");
+let id = 0
 
 server.listen(8080, () => {})
 
@@ -9,12 +12,8 @@ const wsServer = new WebSocketServer({
 })
 
 wsServer.on('request', (request) => {
-  let count = 0
-  let id = count++
-
   const connection = request.accept('rpi', request.origin)
-  const clients = {}
-
+  id += 1
   clients[id] = connection
 
   connection.on('message', (message) => {
@@ -22,11 +21,12 @@ wsServer.on('request', (request) => {
     console.log(JSON.stringify(msgString));
     if (msgString.includes('17')) {
       for (const i in clients) {
-        console.log("MSG STRING RAW", msgString);
         clients[i].sendUTF(msgString)
       }
     }
   })
 
-  connection.on('close', (reason, description) => delete clients[id]);
+  connection.on('close', (reason, description) => {
+    delete clients[id];
+  })
 });

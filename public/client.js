@@ -2,7 +2,6 @@
   app.socket = new WebSocket('ws://localhost:8080', 'rpi')
 
   app.makePinsIntoArray = (data) => {
-    debugger
     const keys = Object.keys(data)
     const values = keys.map(e => data[e])
     const newPins = keys.map((e, i) => ({num: e, gpio: values[i]}))
@@ -25,9 +24,19 @@
         pins: [],
       }
     },
+    methods: {
+      on() {
+        app.sendMessage({17: true})
+      },
+      off() {
+        app.sendMessage({17: false})
+      },
+    },
     template: `
       <div>
         <h1>GPIO Statuses</h1>
+        <button @click='on'>ON</button>
+        <button @click='off'>OFF</button>
         <ul>
           <li v-for='pin in pins'>
             <p>
@@ -50,6 +59,4 @@
       </div>
     `
   })
-
-  app.socket.onconnect = app.sendMessage({17: true})
 })(window.app = {})

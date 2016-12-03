@@ -22,13 +22,13 @@ client.on('connect', function(connection) {
 
   connection.on('message', function(message) {
     if (message.type === 'utf8') {
-      console.log("Received: '" + message.utf8Data + "'");
+      sendPayload(message.utf8Data)
     }
   });
 
   const sendMsg = () => {
     if (connection.connected) {
-      const payload = { 17: true }
+      const payload = { 17: false }
       const msg = JSON.stringify(payload)
       connection.sendUTF(msg);
       sendPayload(msg)
